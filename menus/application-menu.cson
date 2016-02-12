@@ -1,0 +1,16 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      {
+        'label': 'Atom Meld'
+        'submenu': [
+          {
+            'label': 'Diff with Open Tab'
+            'command': 'atom-meld:launch'
+          }
+        ]
+      }
+    ]
+  }
+]
