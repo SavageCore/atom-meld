@@ -5,25 +5,42 @@
 # * Copyright (c) 2016 SavageCore
 # * Licensed under the MIT license.
 #
+{CompositeDisposable} = require 'event-kit'
 AtomMeldExecutor = require './executor'
+config = require('./config.coffee')
 
 module.exports = Atommeld =
   OpenFileSelectionView: null
 
-  config: require('./config.coffee')
+  config:
+      meldPath:
+        title: 'Meld Path'
+        description: 'Path to Meld executable'
+        type: 'string'
+        default: 'meld'
+      meldArgs:
+        title: 'Meld Arguments'
+        description: 'Additional command-line options to pass to Meld'
+        type: 'string'
+        default: '--auto-compare'
 
   activate: (state) ->
+    config.init()
+    @disposables = new CompositeDisposable
     unless @openFileSelectionView?
         OpenFileSelectionView = require './views/open-file-selection'
         @openFileSelectionView = new OpenFileSelectionView(state.openFileSelectionView)
     @openFileSelectionView
-    atom.commands.add 'atom-text-editor', 'atom-meld:diff-from-file-tab', => @diff_from_file_tab()
-    atom.commands.add '.tree-view', 'atom-meld:diff-from-tree-active', => @diff_from_tree_active()
-    atom.commands.add '.tree-view', 'atom-meld:diff-from-tree-tab', => @diff_from_tree_tab()
-    atom.commands.add '.tab-bar', 'atom-meld:diff-from-tab-active', => @diff_from_tab_active()
-    atom.commands.add '.tab-bar', 'atom-meld:diff-from-tab-tab', => @diff_from_tab_tab()
-    global.meldpath = atom.config.get("atom-meld.meldpath")
-    global.meldopts = atom.config.get("atom-meld.meldopts")
+
+    @disposables.add atom.commands.add 'atom-text-editor', 'atom-meld:diff-from-file-tab', => @diff_from_file_tab()
+    @disposables.add atom.commands.add('.tree-view', {
+      'atom-meld:diff-from-tree-active': => @diff_from_tree_active()
+      'atom-meld:diff-from-tree-tab': => @diff_from_tree_tab()
+    })
+    @disposables.add atom.commands.add('.tab-bar', {
+      'atom-meld:diff-from-tab-active': => @diff_from_tab_active()
+      'atom-meld:diff-from-tab-tab': => @diff_from_tab_tab()
+    })
 
   diff_from_tree_active: ->
     packageObj = null
@@ -72,6 +89,7 @@ module.exports = Atommeld =
 
   deactivate: ->
     @openFileSelectionView.destroy()
+    @disposables.dispose()
 
   serialize: ->
     openFileSelectionViewState: @openFileSelectionView.serialize()
