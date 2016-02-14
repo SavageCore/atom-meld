@@ -52,8 +52,8 @@ class FileListView extends SelectListView
     @keyBindings = atom.keymaps.findKeyBindings(target: @eventElement)
 
     openFiles = []
-    hideActiveFileIndex = null
-    hideSelectedFileIndex = null
+    hideActiveFileIndex = undefined
+    hideSelectedFileIndex = undefined
     if not (sourceFile)
         return false
     allFiles = atom.workspace.getTextEditors()
@@ -67,9 +67,9 @@ class FileListView extends SelectListView
         hideActiveFileIndex = index
       if(element.getPath() == selectedPath)
         hideSelectedFileIndex = index
-    if(hideActiveFileIndex)
+    if(hideActiveFileIndex != undefined)
       removedActiveFile = openFiles.splice(hideActiveFileIndex, 1);
-    if(hideSelectedFileIndex)
+    if(hideSelectedFileIndex != undefined)
       removedSelectedFile = openFiles.splice(hideSelectedFileIndex, 1);
     openFiles = _.sortBy(openFiles, 'fileName')
     @setLoading()
