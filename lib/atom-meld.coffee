@@ -33,38 +33,49 @@ module.exports = Atommeld =
     @openFileSelectionView
 
     @disposables.add atom.commands.add 'atom-text-editor', 'atom-meld:diff-from-file-tab', => @diff_from_file_tab()
-    @disposables.add atom.commands.add('.tree-view', {
-      'atom-meld:diff-from-tree-active': => @diff_from_tree_active()
-      'atom-meld:diff-from-tree-tab': => @diff_from_tree_tab()
-    })
     @disposables.add atom.commands.add('.tab-bar', {
       'atom-meld:diff-from-tab-active': => @diff_from_tab_active()
       'atom-meld:diff-from-tab-tab': => @diff_from_tab_tab()
     })
+    @disposables.add atom.commands.add('.tree-view', {
+      'atom-meld:diff-from-tree-active': => @diff_from_tree_active()
+      'atom-meld:diff-from-tree-tab': => @diff_from_tree_tab()
+    })
+    @disposables.add atom.commands.add '.tree-view.multi-select', 'atom-meld:diff-from-tree-selected', => @diff_from_tree_selected()
 
   diff_from_tree_active: ->
-    packageObj = null
+    treeViewObj = null
     activeFile = atom.workspace.getActiveTextEditor().getPath()
     if atom.packages.isPackageLoaded('tree-view') == true
       treeView = atom.packages.getLoadedPackage('tree-view')
       treeView = require(treeView.mainModulePath)
-      packageObj = treeView.serialize()
-    if typeof packageObj != 'undefined' && packageObj != null
-      if packageObj.selectedPath
-          sourceFile = packageObj.selectedPath
+      treeViewObj = treeView.serialize()
+    if typeof treeViewObj != 'undefined' && treeViewObj != null
+      if treeViewObj.selectedPath
+          sourceFile = treeViewObj.selectedPath
           targetFile = atom.workspace.getActiveTextEditor().getPath()
           AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
+  diff_from_tree_selected: ->
+    selectedFilePaths = null
+    treeViewPackage = atom.packages.getActivePackage('tree-view')
+    if (treeViewPackage)
+      selectedFilePaths = treeViewPackage.mainModule.treeView.selectedPaths();
+      if (selectedFilePaths.length != 2)
+        atom.notifications.addWarning 'Atom Meld: You must select 2 files to compare in the tree view'
+        return true
+    AtomMeldExecutor.runMeld(selectedFilePaths[0], selectedFilePaths[1])
+
   diff_from_tree_tab: ->
-    packageObj = null
+    treeViewObj = null
     if atom.packages.isPackageLoaded('tree-view') == true
       treeView = atom.packages.getLoadedPackage('tree-view')
       treeView = require(treeView.mainModulePath)
-      packageObj = treeView.serialize()
-    if typeof packageObj != 'undefined' && packageObj != null
-      if packageObj.selectedPath
-          global.sourceFile = packageObj.selectedPath
-          @openFileSelectionView.show(null, false, packageObj.selectedPath)
+      treeViewObj = treeView.serialize()
+    if typeof treeViewObj != 'undefined' && treeViewObj != null
+      if treeViewObj.selectedPath
+          global.sourceFile = treeViewObj.selectedPath
+          @openFileSelectionView.show(sourceFile, false, sourceFile)
 
   diff_from_tab_active: ->
       sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
@@ -72,19 +83,20 @@ module.exports = Atommeld =
       AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   diff_from_tab_tab: ->
-    # todo
-    atom.notifications.addWarning "atom-meld: Coming soon..."
+    global.sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
+    @openFileSelectionView.show(sourceFile, false, sourceFile)
+
 
   diff_from_file_tab: ->
-    packageObj = null
+    treeViewObj = null
     if atom.packages.isPackageLoaded('tree-view') == true
       treeView = atom.packages.getLoadedPackage('tree-view')
       treeView = require(treeView.mainModulePath)
-      packageObj = treeView.serialize()
-    if typeof packageObj != 'undefined' && packageObj != null
-      if packageObj.selectedPath
+      treeViewObj = treeView.serialize()
+    if typeof treeViewObj != 'undefined' && treeViewObj != null
+      if treeViewObj.selectedPath
           global.sourceFile = atom.workspace.getActiveTextEditor().getPath()
-          targetFile = packageObj.selectedPath
+          targetFile = treeViewObj.selectedPath
           @openFileSelectionView.show(targetFile, true)
 
   deactivate: ->

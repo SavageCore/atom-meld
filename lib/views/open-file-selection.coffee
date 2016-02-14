@@ -3,7 +3,6 @@ _ = require 'underscore-plus'
 {match} = require 'fuzzaldrin'
 fuzzaldrinPlus = require 'fuzzaldrin-plus'
 AtomMeldExecutor = require '../executor'
-# AtomMeldSort = require '../sort'
 
 module.exports =
 class FileListView extends SelectListView
@@ -40,7 +39,7 @@ class FileListView extends SelectListView
     else
       @show()
 
-  show: (targetFile,hideActive,selectedPath) ->
+  show: (sourceFile,hideActive,selectedPath) ->
     @panel ?= atom.workspace.addModalPanel(item: this)
     @panel.show()
 
@@ -55,9 +54,8 @@ class FileListView extends SelectListView
     openFiles = []
     hideActiveFileIndex = null
     hideSelectedFileIndex = null
-
     if not (sourceFile)
-        sourceFile = atom.workspace.getActiveTextEditor().getPath()
+        return false
     allFiles = atom.workspace.getTextEditors()
     allFiles.forEach (element, index, array) ->
       if (element.getPath() and not element.isEmpty())
@@ -116,7 +114,7 @@ class FileListView extends SelectListView
           for binding in keyBindings when binding.command is name
             @kbd _.humanizeKeystroke(binding.keystrokes), class: 'key-binding'
         @span title: name, -> highlighter(displayName, matches, 0)
-        
+
   confirmed: ({name}) =>
     @cancel()
     targetFile = name
