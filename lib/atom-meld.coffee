@@ -74,7 +74,7 @@ module.exports = Atommeld =
       treeViewObj = treeView.serialize()
     if typeof treeViewObj != 'undefined' && treeViewObj != null
       if treeViewObj.selectedPath
-          global.sourceFile = treeViewObj.selectedPath
+          sourceFile = treeViewObj.selectedPath
           @openFileSelectionView.show(sourceFile, false, sourceFile)
 
   diff_from_tab_active: ->
@@ -83,7 +83,7 @@ module.exports = Atommeld =
       AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   diff_from_tab_tab: ->
-    global.sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
+    sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
     @openFileSelectionView.show(sourceFile, false, sourceFile)
 
 
