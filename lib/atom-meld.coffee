@@ -95,9 +95,9 @@ module.exports = Atommeld =
       treeViewObj = treeView.serialize()
     if typeof treeViewObj != 'undefined' && treeViewObj != null
       if treeViewObj.selectedPath
-          global.sourceFile = atom.workspace.getActiveTextEditor().getPath()
+          sourceFile = atom.workspace.getActiveTextEditor().getPath()
           targetFile = treeViewObj.selectedPath
-          @openFileSelectionView.show(targetFile, true)
+          @openFileSelectionView.show(sourceFile, true)
 
   deactivate: ->
     @openFileSelectionView.destroy()
