@@ -6,7 +6,7 @@
       {label: 'Diff with Open Tab', command: 'atom-meld:diff-from-file-tab'}
     ]
   ]
-  '.tree-view .file.selected > .name': [
+  '.tree-view:not(.multi-select) .file.selected > .name': [
     label: 'Atom Meld'
     submenu: [
       {label: 'Diff with Active File', command: 'atom-meld:diff-from-tree-active'}
