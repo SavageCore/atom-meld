@@ -41,8 +41,7 @@ Default `meld` for most Linux OSes. For Windows either add [Meld](http://meldmer
 ## License
 Atom Meld is released under the [MIT license][license].
 
-<!-- [preview]: https://raw.githubusercontent.com/SavageCore/atom-meld/master/img/preview.png -->
-[preview]: http://i.imgur.com/iahtaGB.png
+[preview]: https://raw.githubusercontent.com/SavageCore/atom-meld/master/img/preview.png
 [changelog]: https://github.com/SavageCore/atom-meld/blob/master/CHANGELOG.md
 [issue]: https://github.com/SavageCore/atom-meld/issues
 [license]: LICENSE.md
