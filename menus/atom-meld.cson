@@ -1,4 +1,3 @@
-# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
 'context-menu':
   'atom-workspace atom-text-editor:not(.mini)': [
     label: 'Atom Meld'
@@ -13,10 +12,15 @@
       {label: 'Diff with Open Tab', command: 'atom-meld:diff-from-tree-tab'}
     ]
   ]
-  '.tab-bar .tab': [
+  '.tab-bar .tab:not(.active)': [
     label: 'Atom Meld'
     submenu: [
       {label: 'Diff with Active File', command: 'atom-meld:diff-from-tab-active'}
+    ]
+  ]
+  '.tab-bar .tab': [
+    label: 'Atom Meld'
+    submenu: [
       {label: 'Diff with Open Tab', command: 'atom-meld:diff-from-tab-tab'}
     ]
   ]
