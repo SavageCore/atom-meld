@@ -46,6 +46,10 @@
         'label': 'Atom Meld'
         'submenu': [
           {
+            'label': 'Diff: Active File with File'
+            'command': 'atom-meld:diff-from-file-file'
+          }
+          {
             'label': 'Diff: Active File with Open Tab'
             'command': 'atom-meld:diff-from-file-tab'
           }
