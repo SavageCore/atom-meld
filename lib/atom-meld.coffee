@@ -5,7 +5,7 @@
 # * Copyright (c) 2016 SavageCore
 # * Licensed under the MIT license.
 #
-{CompositeDisposable} = require 'event-kit'
+{CompositeDisposable} = require 'atom'
 AtomMeldExecutor = require './executor'
 config = require('./config.coffee')
 

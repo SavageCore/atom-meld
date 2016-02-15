@@ -13,7 +13,6 @@
     "atom-space-pen-views": "^2.0.0",
     "fuzzaldrin": "^2.1.0",
     "fuzzaldrin-plus": "^0.1.0",
-    "underscore-plus": "^1.0.1",
-    "event-kit": "^1.0.0"
+    "underscore-plus": "^1.0.1"
   }
 }
