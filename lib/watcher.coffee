@@ -1,13 +1,13 @@
 {CompositeDisposable} = require 'atom'
+{TextEditor} = require 'atom'
 module.exports = {
   init: ->
     @selectEntry(atom.workspace.getActiveTextEditor())
 
     @disposables = new CompositeDisposable
-    @disposables.add atom.workspace.onDidChangeActivePaneItem (TextEditor) =>
-      # Skip Settings page
-      if TextEditor.uri == 'undefined'
-        @selectEntry(TextEditor)
+    @disposables.add atom.workspace.onDidChangeActivePaneItem (editor) =>
+      if editor instanceof TextEditor
+        @selectEntry(editor)
 
   selectEntry: (TextEditor) ->
     return unless TextEditor?
