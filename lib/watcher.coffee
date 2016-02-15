@@ -5,7 +5,9 @@ module.exports = {
 
     @disposables = new CompositeDisposable
     @disposables.add atom.workspace.onDidChangeActivePaneItem (TextEditor) =>
-      @selectEntry(TextEditor)
+      # Skip Settings page
+      if TextEditor.uri == 'undefined'
+        @selectEntry(TextEditor)
 
   selectEntry: (TextEditor) ->
     return unless TextEditor?
