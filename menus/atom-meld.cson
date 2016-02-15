@@ -2,6 +2,7 @@
   'atom-workspace atom-text-editor:not(.mini)': [
     label: 'Atom Meld'
     submenu: [
+      {label: 'Diff with File', command: 'atom-meld:diff-from-file-file'}
       {label: 'Diff with Open Tab', command: 'atom-meld:diff-from-file-tab'}
     ]
   ]
@@ -15,6 +16,7 @@
     label: 'Atom Meld'
     submenu: [
       {label: 'Diff with Open Tab', command: 'atom-meld:diff-from-tree-tab'}
+      {label: 'Diff with File', command: 'atom-meld:diff-from-tree-file'}
     ]
   ]
   '.tab-bar .tab:not(.active)': [
@@ -26,6 +28,7 @@
   '.tab-bar .tab': [
     label: 'Atom Meld'
     submenu: [
+      {label: 'Diff with File', command: 'atom-meld:diff-from-tab-file'}
       {label: 'Diff with Open Tab', command: 'atom-meld:diff-from-tab-tab'}
     ]
   ]
