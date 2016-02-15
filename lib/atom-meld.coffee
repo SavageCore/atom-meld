@@ -8,6 +8,8 @@
 {CompositeDisposable} = require 'atom'
 AtomMeldExecutor = require './executor'
 config = require('./config.coffee')
+watcher = require('./watcher.coffee')
+{$} = require('atom-space-pen-views')
 
 module.exports = Atommeld =
   OpenFileSelectionView: null
@@ -26,6 +28,10 @@ module.exports = Atommeld =
 
   activate: (state) ->
     config.init()
+    # Wait until document.onload
+    $ ->
+      watcher.init()
+
     @disposables = new CompositeDisposable
     unless @openFileSelectionView?
         OpenFileSelectionView = require './views/open-file-selection'
