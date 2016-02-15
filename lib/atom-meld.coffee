@@ -50,17 +50,9 @@ module.exports = Atommeld =
     @disposables.add atom.commands.add '.tree-view.multi-select', 'atom-meld:diff-from-tree-selected', => @diff_from_tree_selected()
 
   diff_from_tree_active: ->
-    treeViewObj = null
-    activeFile = atom.workspace.getActiveTextEditor().getPath()
-    if atom.packages.isPackageLoaded('tree-view') == true
-      treeView = atom.packages.getLoadedPackage('tree-view')
-      treeView = require(treeView.mainModulePath)
-      treeViewObj = treeView.serialize()
-    if typeof treeViewObj != 'undefined' && treeViewObj != null
-      if treeViewObj.selectedPath
-          sourceFile = treeViewObj.selectedPath
-          targetFile = atom.workspace.getActiveTextEditor().getPath()
-          AtomMeldExecutor.runMeld(sourceFile, targetFile)
+    sourceFile = @getSelectedTree()
+    targetFile = atom.workspace.getActiveTextEditor().getPath()
+    AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   diff_from_tree_selected: ->
     selectedFilePaths = null
@@ -73,16 +65,9 @@ module.exports = Atommeld =
     AtomMeldExecutor.runMeld(selectedFilePaths[0], selectedFilePaths[1])
 
   diff_from_tree_tab: ->
-    treeViewObj = null
-    if atom.packages.isPackageLoaded('tree-view') == true
-      treeView = atom.packages.getLoadedPackage('tree-view')
-      treeView = require(treeView.mainModulePath)
-      treeViewObj = treeView.serialize()
-    if typeof treeViewObj != 'undefined' && treeViewObj != null
-      if treeViewObj.selectedPath
-          sourceFile = treeViewObj.selectedPath
-          @openFileSelectionView.show(sourceFile, false, sourceFile)
-
+    global.sourceFile = @getSelectedTree()
+    @openFileSelectionView.show(sourceFile, false, sourceFile)
+    
   diff_from_tab_active: ->
       sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
       targetFile = atom.workspace.getActiveTextEditor().getPath()
@@ -92,8 +77,12 @@ module.exports = Atommeld =
     sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
     @openFileSelectionView.show(sourceFile, false, sourceFile)
 
-
   diff_from_file_tab: ->
+    sourceFile = atom.workspace.getActiveTextEditor().getPath()
+    targetFile = @getSelectedTree()
+    @openFileSelectionView.show(sourceFile, true)
+
+  getSelectedTree: ->
     treeViewObj = null
     if atom.packages.isPackageLoaded('tree-view') == true
       treeView = atom.packages.getLoadedPackage('tree-view')
@@ -101,9 +90,8 @@ module.exports = Atommeld =
       treeViewObj = treeView.serialize()
     if typeof treeViewObj != 'undefined' && treeViewObj != null
       if treeViewObj.selectedPath
-          sourceFile = atom.workspace.getActiveTextEditor().getPath()
-          targetFile = treeViewObj.selectedPath
-          @openFileSelectionView.show(sourceFile, true)
+          sourceFile = treeViewObj.selectedPath
+    return sourceFile
 
   deactivate: ->
     @openFileSelectionView.destroy()
