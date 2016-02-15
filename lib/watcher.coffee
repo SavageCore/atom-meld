@@ -11,7 +11,10 @@ module.exports = {
 
   selectEntry: (TextEditor) ->
     return unless TextEditor?
-    filePath =  TextEditor.getPath().split('\\').join('\\\\');
+    filePath = TextEditor.getPath();
+    # Replace single backslash with double if platform win32
+    if process.platform is 'win32'
+      filePath = filePath.split('\\').join('\\\\');
     fileSelector = '.tree-view [data-path="' + filePath + '"]'
 
     entry = document.querySelector(fileSelector)
