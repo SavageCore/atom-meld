@@ -9,9 +9,9 @@ module.exports = {
       if editor instanceof TextEditor
         @selectEntry(editor)
 
-  selectEntry: (TextEditor) ->
-    return unless TextEditor?
-    filePath = TextEditor.getPath();
+  selectEntry: (editor) ->
+    return unless editor?
+    filePath = editor.getPath();
     # Replace single backslash with double if platform win32
     if process.platform is 'win32'
       filePath = filePath.split('\\').join('\\\\');
