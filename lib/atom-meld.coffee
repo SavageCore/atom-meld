@@ -5,17 +5,13 @@
 # * Copyright (c) 2016 SavageCore
 # * Licensed under the MIT license.
 #
-{CompositeDisposable} = require 'atom'
-AtomMeldExecutor = require './executor'
-config = require('./config.coffee')
-watcher = require('./watcher.coffee')
-{$} = require('atom-space-pen-views')
-remote = require "remote"
-dialog = remote.require "dialog"
+AtomMeldExecutor = null
+config = null
+watcher = null
+remote = null
+dialog = null
 
 module.exports = Atommeld =
-  OpenFileSelectionView: null
-
   config:
       meldPath:
         title: 'Meld Path'
@@ -29,32 +25,49 @@ module.exports = Atommeld =
         default: '--auto-compare'
 
   activate: (state) ->
+    OpenTabSelectionView: null
+    loadOpenFileSelectionView: null
+    loadAtomMeldExecutor: null
+    @loadRequiredModules(state)
     config.init()
-    # Wait until document.onload
-    $ ->
-      watcher.init()
+    document.onload = watcher.init()
+    @commands = atom.commands.add 'atom-text-editor',
+      'atom-meld:diff-from-file-file': =>
+        @loadAtomMeldExecutor()
+        @loadDialogModule()
+        @diff_from_file_file()
+      'atom-meld:diff-from-file-tab': =>
+        @loadOpenTabSelectionView(state)
+        @diff_from_file_tab()
 
-    @disposables = new CompositeDisposable
-    unless @openFileSelectionView?
-        OpenFileSelectionView = require './views/open-file-selection'
-        @openFileSelectionView = new OpenFileSelectionView(state.openFileSelectionView)
-    @openFileSelectionView
+    @commands.add atom.commands.add '.tab-bar',
+      'atom-meld:diff-from-tab-active': =>
+        @loadAtomMeldExecutor()
+        @diff_from_tab_active()
+      'atom-meld:diff-from-tab-file': =>
+        @loadAtomMeldExecutor()
+        @loadDialogModule()
+        @diff_from_tab_file()
+      'atom-meld:diff-from-tab-tab': =>
+        @loadOpenTabSelectionView(state)
+        @diff_from_tab_tab()
 
-    @disposables.add atom.commands.add('atom-text-editor', {
-      'atom-meld:diff-from-file-file': => @diff_from_file_file()
-      'atom-meld:diff-from-file-tab': => @diff_from_file_tab()
-    })
-    @disposables.add atom.commands.add('.tab-bar', {
-      'atom-meld:diff-from-tab-active': => @diff_from_tab_active()
-      'atom-meld:diff-from-tab-file': => @diff_from_tab_file()
-      'atom-meld:diff-from-tab-tab': => @diff_from_tab_tab()
-    })
-    @disposables.add atom.commands.add('.tree-view', {
-      'atom-meld:diff-from-tree-active': => @diff_from_tree_active()
-      'atom-meld:diff-from-tree-file': => @diff_from_tree_file()
-      'atom-meld:diff-from-tree-tab': => @diff_from_tree_tab()
-    })
-    @disposables.add atom.commands.add '.tree-view.multi-select', 'atom-meld:diff-from-tree-selected', => @diff_from_tree_selected()
+    @commands.add atom.commands.add '.tree-view',
+      'atom-meld:diff-from-tree-active': =>
+        @loadAtomMeldExecutor()
+        @diff_from_tree_active()
+      'atom-meld:diff-from-tree-file': =>
+        @loadAtomMeldExecutor()
+        @loadDialogModule()
+        @diff_from_tree_file()
+      'atom-meld:diff-from-tree-tab': =>
+        @loadOpenTabSelectionView(state)
+        @diff_from_tree_tab()
+
+    @commands.add atom.commands.add '.tree-view.multi-select',
+      'atom-meld:diff-from-tree-selected': =>
+        @loadAtomMeldExecutor()
+        @diff_from_tree_selected()
 
   diff_from_file_file: ->
     sourceFile = atom.workspace.getActiveTextEditor().getPath()
@@ -65,12 +78,12 @@ module.exports = Atommeld =
   diff_from_file_tab: ->
     sourceFile = atom.workspace.getActiveTextEditor().getPath()
     targetFile = @getSelectedTree()
-    @openFileSelectionView.show(sourceFile, true)
+    @openTabSelectionView.show(sourceFile, true)
 
   diff_from_tab_active: ->
-      sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
-      targetFile = atom.workspace.getActiveTextEditor().getPath()
-      AtomMeldExecutor.runMeld(sourceFile, targetFile)
+    sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
+    targetFile = atom.workspace.getActiveTextEditor().getPath()
+    AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   diff_from_tab_file: ->
     sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
@@ -79,8 +92,8 @@ module.exports = Atommeld =
     AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   diff_from_tab_tab: ->
-    sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
-    @openFileSelectionView.show(sourceFile, false, sourceFile)
+    global.sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
+    @openTabSelectionView.show(sourceFile, false, sourceFile)
 
   diff_from_tree_active: ->
     sourceFile = @getSelectedTree()
@@ -105,7 +118,7 @@ module.exports = Atommeld =
 
   diff_from_tree_tab: ->
     global.sourceFile = @getSelectedTree()
-    @openFileSelectionView.show(sourceFile, false, sourceFile)
+    @openTabSelectionView.show(sourceFile, false, sourceFile)
 
   getSelectedTree: ->
     treeViewObj = null
@@ -119,8 +132,30 @@ module.exports = Atommeld =
     return sourceFile
 
   deactivate: ->
-    @openFileSelectionView.destroy()
-    @disposables.dispose()
+    @openTabSelectionView.destroy()
+    @commands.dispose()
+    AtomMeldExecutor = null
+    config = null
+    watcher = null
+    remote = null
+    dialog = null
 
   serialize: ->
-    openFileSelectionViewState: @openFileSelectionView.serialize()
+    openFileSelectionViewState: @openTabSelectionView.serialize()
+
+  loadRequiredModules: (state) ->
+    config ?= require './config'
+    watcher ?= require './watcher'
+
+  loadDialogModule: ->
+    remote ?= require "remote"
+    dialog ?= remote?.require "dialog"
+
+  loadAtomMeldExecutor: ->
+    AtomMeldExecutor ?= require './executor'
+
+  loadOpenTabSelectionView: (state) ->
+      unless @openTabSelectionView?
+          OpenTabSelectionView = require './views/open-tab-selection'
+          @openTabSelectionView = new OpenTabSelectionView(state.OpenTabSelectionView)
+      @openTabSelectionView
