@@ -12,8 +12,6 @@ Please send comments, [issues][issue], [bugs][issue], [feature requests][issue] 
 
 ![AM][preview-tree-tab]
 
-[an example][id]
-
 ### Installation
 
 Do one of the following
