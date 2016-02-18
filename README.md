@@ -6,7 +6,13 @@ Diff with external tool [Meld](http://meldmerge.org/)
 
 Please send comments, [issues][issue], [bugs][issue], [feature requests][issue] and PRs!
 
-![AM][preview]
+![AM][preview-file-file]
+
+![AM][preview-tab-active]
+
+![AM][preview-tree-tab]
+
+[an example][id]
 
 ### Installation
 
@@ -26,22 +32,29 @@ Set [Command Line Arguments](http://manpages.ubuntu.com/manpages/precise/man1/me
 
 ###### Meld Path
 
-Default `meld` for most Linux OSes. For Windows either add [Meld](http://meldmerge.org/) to your PATH and use `meld` or input the full path `C:\Program Files (x86)\Meld\Meld.exe`
+Default `meld`. For Windows either add [Meld](http://meldmerge.org/) to your PATH and use `meld` or input the full path `C:\Program Files (x86)\Meld\Meld.exe`
 
-### Features
+### Commands
 
-* Context menu in tree-view (left side file list), tab-bar and active file.
-* Diff with Open Tab
-* Diff with Active File
+|Command |Description|Keymap|
+|---|---|---|
+|atom-meld:diff-from-file-file|[Active File with File from System][preview-file-file]| 'alt-m'|
+|atom-meld:diff-from-file-tab|Active File with Open Tab||
+|atom-meld:diff-from-tab-active|[Selected Tab with Active File][preview-tab-active]||
+|atom-meld:diff-from-tab-file|Selected Tab with File from System||
+|atom-meld:diff-from-tab-tab|Selected Tab with Open Tab||
+|atom-meld:diff-from-tree-active|Selected File from Tree View with Active File||
+|atom-meld:diff-from-tree-file|Selected File from Tree View with File from System||
+|atom-meld:diff-from-tree-tab|[Selected File from Tree View with Open Tab][preview-tree-tab]||
+|atom-meld:diff-from-tree-selected|[Two Selected Files from Tree View][preview-tree-selected]||
 
-### Planned Features
-
-* Diff with File in Project
-
-## License
+### License
 Atom Meld is released under the [MIT license][license].
 
-[preview]: https://raw.githubusercontent.com/SavageCore/atom-meld/master/img/preview.png
+[preview-file-file]:https://raw.githubusercontent.com/SavageCore/atom-meld/master/img/preview-file-file.gif "Diff Active File with File from System"
+[preview-tab-active]:https://raw.githubusercontent.com/SavageCore/atom-meld/master/img/preview-tab-active.gif "Diff Selected Tab with Active File"
+[preview-tree-tab]:https://raw.githubusercontent.com/SavageCore/atom-meld/master/img/preview-tree-tab.gif "Diff Selected File from Tree View with Open Tab"
+[preview-tree-selected]:https://raw.githubusercontent.com/SavageCore/atom-meld/master/img/preview-tree-selected.gif "Diff Two Selected Files from Tree View"
 [changelog]: https://github.com/SavageCore/atom-meld/blob/master/CHANGELOG.md
 [issue]: https://github.com/SavageCore/atom-meld/issues
 [license]: LICENSE.md
