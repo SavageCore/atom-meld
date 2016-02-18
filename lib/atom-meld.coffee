@@ -30,7 +30,8 @@ module.exports = Atommeld =
     loadAtomMeldExecutor: null
     @loadRequiredModules(state)
     config.init()
-    document.onload = watcher.init()
+    watcher.init()
+
     @commands = atom.commands.add 'atom-text-editor',
       'atom-meld:diff-from-file-file': =>
         @loadAtomMeldExecutor()

@@ -2,29 +2,33 @@
 {TextEditor} = require 'atom'
 module.exports = {
   init: ->
-    @selectEntry(atom.workspace.getActiveTextEditor())
-
-    @disposables = new CompositeDisposable
-    @disposables.add atom.workspace.onDidChangeActivePaneItem (editor) =>
-      if editor instanceof TextEditor
-        @selectEntry(editor)
+    @changePaneSubscription = atom.workspace.onDidStopChangingActivePaneItem((item) =>
+      return unless item instanceof TextEditor
+      @selectEntry(item)
+    )
 
   selectEntry: (editor) ->
     return unless editor?
+    return unless editor.buffer?
     file = editor.buffer.file
-    filePath = file.path
+    return unless file?
+    filePath = file.getPath()
 
     # Replace single backslash with double if platform win32
     if process.platform is 'win32'
       fileSelectorPath = filePath.split('\\').join('\\\\')
-    fileSelector = '.tree-view [data-path="' + fileSelectorPath + '"]'
+      fileSelector = '.tree-view [data-path="' + fileSelectorPath + '"]'
+    else
+      fileSelector = '.tree-view [data-path="' + filePath + '"]'
     entry = document.querySelector(fileSelector)
 
     # Perhaps a bug but both file.isSymbolicLink() and file.getParent().isSymbolicLink() always return false
+    # and file.getPath(), file.getRealPathSync() only return resolved path
+    # When base project folder is symlink
     # Example package in C:\Users\SavageCore\Documents\Git\atom-meld\ installed via `apm link`
-    # file.path returns C:\Users\SavageCore\Documents\Git\atom-meld\lib\watcher.coffee
+    # file.getPath() returns C:\Users\SavageCore\Documents\Git\atom-meld\lib\watcher.coffee
     # But tree-view data-path is C:\Users\SavageCore\.atom\packages\atom-meld\lib\watcher.coffee
-    # So to 'fix' we run the querySelector again based on relativizePath()
+    # So to 'fix' we run the querySelector again based on relativizePath() if entry not set above
 
     if not entry
       relativePath = atom.project.relativizePath(filePath)
@@ -51,5 +55,5 @@ module.exports = {
     undefined
 
   destroy: ->
-    @disposables.dispose()
+    @changePaneSubscription.dispose()
 }
