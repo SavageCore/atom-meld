@@ -26,6 +26,7 @@ module.exports = Atommeld =
 
   activate: (state) ->
     OpenTabSelectionView: null
+    openTabSelectionView: null
     loadOpenFileSelectionView: null
     loadAtomMeldExecutor: null
     @loadRequiredModules(state)
@@ -133,7 +134,7 @@ module.exports = Atommeld =
     return sourceFile
 
   deactivate: ->
-    @openTabSelectionView.destroy()
+    @openTabSelectionView?.destroy()
     @commands.dispose()
     AtomMeldExecutor = null
     config = null
@@ -142,7 +143,7 @@ module.exports = Atommeld =
     dialog = null
 
   serialize: ->
-    openFileSelectionViewState: @openTabSelectionView.serialize()
+    openTabSelectionView: @openTabSelectionView?.serialize()
 
   loadRequiredModules: (state) ->
     config ?= require './config'
@@ -158,5 +159,5 @@ module.exports = Atommeld =
   loadOpenTabSelectionView: (state) ->
       unless @openTabSelectionView?
           OpenTabSelectionView = require './views/open-tab-selection'
-          @openTabSelectionView = new OpenTabSelectionView(state.OpenTabSelectionView)
+          @openTabSelectionView = new OpenTabSelectionView(state.openTabSelectionView)
       @openTabSelectionView
