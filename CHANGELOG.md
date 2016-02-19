@@ -1,4 +1,4 @@
-## 0.1.4
+## 0.2.1
 
 * Add Diff Active File with Open Tab keymap (ctrl-alt-m/ctrl-cmd-m) [[a2c83b7](https://github.com/SavageCore/atom-meld/commit/a2c83b7de7f6f86b8efa966e35838e3c73590aba)]
 
