@@ -36,8 +36,8 @@ Default `meld`. For Windows either add [Meld](http://meldmerge.org/) to your PAT
 
 |Command |Description|Keymap|
 |---|---|---|
-|atom-meld:diff-from-file-file|[Active File with File from System][preview-file-file]| 'alt-m'|
-|atom-meld:diff-from-file-tab|Active File with Open Tab||
+|atom-meld:diff-from-file-file|[Active File with File from System][preview-file-file]|alt-m|
+|atom-meld:diff-from-file-tab|Active File with Open Tab|ctrl-alt-m/ctrl-cmd-m|
 |atom-meld:diff-from-tab-active|[Selected Tab with Active File][preview-tab-active]||
 |atom-meld:diff-from-tab-file|Selected Tab with File from System||
 |atom-meld:diff-from-tab-tab|Selected Tab with Open Tab||

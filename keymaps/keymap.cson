@@ -1,2 +1,11 @@
 'atom-text-editor':
   'alt-m': 'atom-meld:diff-from-file-file'
+
+'.platform-darwin atom-text-editor':
+  'ctrl-cmd-m': 'atom-meld:diff-from-file-tab'
+
+'.platform-linux atom-text-editor':
+  'ctrl-alt-m': 'atom-meld:diff-from-file-tab'
+
+'.platform-win32 atom-text-editor':
+  'ctrl-alt-m': 'atom-meld:diff-from-file-tab'
