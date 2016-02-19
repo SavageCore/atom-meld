@@ -143,7 +143,7 @@ module.exports = Atommeld =
     dialog = null
 
   serialize: ->
-    openTabSelectionView: @openTabSelectionView?.serialize()
+    openTabSelectionViewState: @openTabSelectionView?.serialize()
 
   loadRequiredModules: (state) ->
     config ?= require './config'
