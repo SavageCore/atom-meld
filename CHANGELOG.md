@@ -1,3 +1,7 @@
+## 0.1.4
+
+* Fix undefined errors on disable [[1629c1e](https://github.com/SavageCore/atom-meld/commit/1629c1ef653417c4e100223e1ff3d45824a9ab38)]
+
 ## 0.1.3
 * Removed erroneous file sort.coffee [[bdc0890](https://github.com/SavageCore/atom-meld/commit/bdc089090a9c8467f5e90678397c3eafe02eb6d7)]
 
