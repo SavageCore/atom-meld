@@ -1,3 +1,9 @@
+## 0.3.1
+* Remember to update changelog before a release!
+
+## 0.3.0
+* Fix TypeError: Cannot read property 'showOpenDialog' of undefined [[7f5b9c9](https://github.com/SavageCore/atom-meld/commit/7f5b9c96f90e672a7a6a5db91d4a73e6bb58f979)]
+
 ## 0.2.1
 
 * Add Diff Active File with Open Tab keymap (ctrl-alt-m/ctrl-cmd-m) [[a2c83b7](https://github.com/SavageCore/atom-meld/commit/a2c83b7de7f6f86b8efa966e35838e3c73590aba)]
