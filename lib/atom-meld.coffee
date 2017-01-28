@@ -151,7 +151,7 @@ module.exports = Atommeld =
 
   loadDialogModule: ->
     remote ?= require "remote"
-    dialog ?= remote?.require "dialog"
+    dialog ?= remote?.dialog
 
   loadAtomMeldExecutor: ->
     AtomMeldExecutor ?= require './executor'
