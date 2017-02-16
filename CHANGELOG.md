@@ -1,5 +1,7 @@
 ## 0.3.2
-* Fix `destroy is not a function` errors on close
+* Fix `destroy is not a function` errors on close [[5040dd6](https://github.com/SavageCore/atom-meld/commit/5040dd676f7efa8fd9d2afb27549353a982d0e24)]
+
+* Add specs [[e37337a](https://github.com/SavageCore/atom-meld/commit/e37337a0183f694fc260a0c88d42a4e7a147abcb)]
 
 ## 0.3.1
 * Remember to update changelog before a release!
