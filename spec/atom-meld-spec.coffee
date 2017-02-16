@@ -43,7 +43,7 @@ describe "package activate", ->
 
     waitsForPromise ->
       atom.packages.activatePackage('tree-view').then () ->
-        atom.commands.dispatch(workspaceElement, 'tree-view:toggle')
+        atom.commands.dispatch(workspaceElement, 'tree-view:show')
         treeView = $(atom.workspace.getLeftPanels()[0].getItem()).view()
         treeViewElement = workspaceElement.querySelector('.tree-view')
 
