@@ -1,3 +1,6 @@
+## 0.3.2
+* Fix `destroy is not a function` errors on close
+
 ## 0.3.1
 * Remember to update changelog before a release!
 
