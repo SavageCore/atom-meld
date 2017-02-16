@@ -13,16 +13,16 @@ dialog = null
 
 module.exports = Atommeld =
   config:
-      meldPath:
-        title: 'Meld Path'
-        description: 'Path to Meld executable'
-        type: 'string'
-        default: 'meld'
-      meldArgs:
-        title: 'Meld Arguments'
-        description: 'Additional command-line options to pass to Meld'
-        type: 'string'
-        default: '--auto-compare'
+    meldPath:
+      title: 'Meld Path'
+      description: 'Path to Meld executable'
+      type: 'string'
+      default: 'meld'
+    meldArgs:
+      title: 'Meld Arguments'
+      description: 'Additional command-line options to pass to Meld'
+      type: 'string'
+      default: '--auto-compare'
 
   activate: (state) ->
     OpenTabSelectionView: null
@@ -83,18 +83,18 @@ module.exports = Atommeld =
     @openTabSelectionView.show(sourceFile, true)
 
   diff_from_tab_active: ->
-    sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
+    sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path')
     targetFile = atom.workspace.getActiveTextEditor().getPath()
     AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   diff_from_tab_file: ->
-    sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
+    sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path')
     targetFile = dialog.showOpenDialog({properties:['openFile'],defaultPath:atom.project.getPaths()[0]})
     return unless targetFile != undefined
     AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   diff_from_tab_tab: ->
-    global.sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path');
+    global.sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path')
     @openTabSelectionView.show(sourceFile, false, sourceFile)
 
   diff_from_tree_active: ->
@@ -112,7 +112,7 @@ module.exports = Atommeld =
     selectedFilePaths = null
     treeViewPackage = atom.packages.getActivePackage('tree-view')
     if (treeViewPackage)
-      selectedFilePaths = treeViewPackage.mainModule.treeView.selectedPaths();
+      selectedFilePaths = treeViewPackage.mainModule.treeView.selectedPaths()
       if (selectedFilePaths.length != 2)
         atom.notifications.addWarning 'Atom Meld: You must select 2 files to compare in the tree view'
         return true
@@ -130,7 +130,7 @@ module.exports = Atommeld =
       treeViewObj = treeView.serialize()
     if typeof treeViewObj != 'undefined' && treeViewObj != null
       if treeViewObj.selectedPath
-          sourceFile = treeViewObj.selectedPath
+        sourceFile = treeViewObj.selectedPath
     return sourceFile
 
   deactivate: ->
@@ -157,7 +157,7 @@ module.exports = Atommeld =
     AtomMeldExecutor ?= require './executor'
 
   loadOpenTabSelectionView: (state) ->
-      unless @openTabSelectionView?
-          OpenTabSelectionView = require './views/open-tab-selection'
-          @openTabSelectionView = new OpenTabSelectionView(state.openTabSelectionView)
-      @openTabSelectionView
+    unless @openTabSelectionView?
+      OpenTabSelectionView = require './views/open-tab-selection'
+      @openTabSelectionView = new OpenTabSelectionView(state.openTabSelectionView)
+    @openTabSelectionView
