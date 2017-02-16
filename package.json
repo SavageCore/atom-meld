@@ -7,7 +7,7 @@
   "private": true,
   "repository": "https://github.com/SavageCore/atom-meld",
   "engines": {
-    "atom": ">0.61.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.0",
@@ -16,6 +16,8 @@
     "underscore-plus": "^1.0.1"
   },
   "devDependencies": {
-    "coffeelint": "^1.16.0"
-}
+    "coffeelint": "^1.16.0",
+    "fs-plus": "^2.9.3",
+    "temp": "^0.8.3"
+  }
 }
