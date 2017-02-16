@@ -1,6 +1,6 @@
 # Atom Meld
 
-![apm version][av] ![apm downloads][ad]
+![apm version][av] ![apm downloads][ad] [![Dependency Status](https://dependencyci.com/github/SavageCore/atom-meld/badge)](https://dependencyci.com/github/SavageCore/atom-meld)
 
 Diff with external tool [Meld](http://meldmerge.org/)
 
