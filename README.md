@@ -1,6 +1,7 @@
 # Atom Meld
 
-![apm version][av] ![apm downloads][ad] [![Build Status](https://travis-ci.org/SavageCore/atom-meld.svg?branch=master)](https://travis-ci.org/SavageCore/atom-meld) [![Dependency Status](https://dependencyci.com/github/SavageCore/atom-meld/badge)](https://dependencyci.com/github/SavageCore/atom-meld)
+![apm version][av] ![apm downloads][ad] [![Build Status: Linux](https://travis-ci.org/SavageCore/atom-meld.svg?branch=master)](https://travis-ci.org/SavageCore/atom-meld) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/32j0i3rm96e4chpf?svg=true)](https://ci.appveyor.com/project/SavageCore/atom-meld)
+ [![Dependency Status](https://dependencyci.com/github/SavageCore/atom-meld/badge)](https://dependencyci.com/github/SavageCore/atom-meld)
 
 Diff with external tool [Meld](http://meldmerge.org/)
 
