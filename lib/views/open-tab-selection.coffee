@@ -55,7 +55,7 @@ class FileListView extends SelectListView
     hideActiveFileIndex = undefined
     hideSelectedFileIndex = undefined
     if not (sourceFile)
-        return false
+      return false
     allFiles = atom.workspace.getTextEditors()
     allFiles.forEach (element, index, array) ->
       if (element.getPath() and not element.isEmpty())
@@ -68,9 +68,9 @@ class FileListView extends SelectListView
       if(element.getPath() == selectedPath)
         hideSelectedFileIndex = index
     if(hideActiveFileIndex != undefined)
-      removedActiveFile = openFiles.splice(hideActiveFileIndex, 1);
+      removedActiveFile = openFiles.splice(hideActiveFileIndex, 1)
     if(hideSelectedFileIndex != undefined)
-      removedSelectedFile = openFiles.splice(hideSelectedFileIndex, 1);
+      removedSelectedFile = openFiles.splice(hideSelectedFileIndex, 1)
     openFiles = _.sortBy(openFiles, 'fileName')
     @setLoading()
     @setItems(openFiles)
@@ -120,7 +120,7 @@ class FileListView extends SelectListView
     targetFile = name
     sourceFile = global.sourceFile
     if not (sourceFile)
-        sourceFile = atom.workspace.getActiveTextEditor().getPath()
+      sourceFile = atom.workspace.getActiveTextEditor().getPath()
     AtomMeldExecutor.runMeld(sourceFile, targetFile)
 
   populateList: ->
