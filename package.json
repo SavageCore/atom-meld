@@ -14,5 +14,8 @@
     "fuzzaldrin": "^2.1.0",
     "fuzzaldrin-plus": "^0.1.0",
     "underscore-plus": "^1.0.1"
-  }
+  },
+  "devDependencies": {
+    "coffeelint": "^1.16.0"
+}
 }
