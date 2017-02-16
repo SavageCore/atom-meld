@@ -134,7 +134,7 @@ module.exports = Atommeld =
     return sourceFile
 
   deactivate: ->
-    @openTabSelectionView?.destroy()
+    @openTabSelectionView = null
     @commands.dispose()
     AtomMeldExecutor = null
     config = null
