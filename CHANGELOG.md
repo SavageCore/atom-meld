@@ -1,3 +1,6 @@
+## 0.3.3
+* Fix `Uncaught TypeError: Cannot read property 'getPath' of undefined` when diffing with Active File. Now displays a dismissible warning notification hopefully explaining the 'issue' [[fbd6f30](https://github.com/SavageCore/atom-meld/commit/fbd6f30c363cd62724cdb2328b0b55954859893f)]
+
 ## 0.3.2
 * Fix `destroy is not a function` errors on close [[5040dd6](https://github.com/SavageCore/atom-meld/commit/5040dd676f7efa8fd9d2afb27549353a982d0e24)]
 
