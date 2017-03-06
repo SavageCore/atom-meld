@@ -84,8 +84,11 @@ module.exports = Atommeld =
 
   diff_from_tab_active: ->
     sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path')
-    targetFile = atom.workspace.getActiveTextEditor().getPath()
-    AtomMeldExecutor.runMeld(sourceFile, targetFile)
+    if (atom.workspace.getActiveTextEditor())
+      targetFile = atom.workspace.getActiveTextEditor().getPath()
+      AtomMeldExecutor.runMeld(sourceFile, targetFile)
+    else
+      atom.notifications.addWarning('No path to Active File',{detail:'Are you viewing the settings page per chance?\nA file must be opened and in view to use this function.';dismissable:true})
 
   diff_from_tab_file: ->
     sourceFile = document.querySelector(".tab-bar .right-clicked .title").getAttribute('data-path')
@@ -99,8 +102,11 @@ module.exports = Atommeld =
 
   diff_from_tree_active: ->
     sourceFile = @getSelectedTree()
-    targetFile = atom.workspace.getActiveTextEditor().getPath()
-    AtomMeldExecutor.runMeld(sourceFile, targetFile)
+    if (atom.workspace.getActiveTextEditor())
+      targetFile = atom.workspace.getActiveTextEditor().getPath()
+      AtomMeldExecutor.runMeld(sourceFile, targetFile)
+    else
+      atom.notifications.addWarning('No path to Active File',{detail:'Are you viewing the settings page per chance?\nA file must be opened and in view to use this function.';dismissable:true})
 
   diff_from_tree_file: ->
     sourceFile = @getSelectedTree()
