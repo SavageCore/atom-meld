@@ -66,7 +66,7 @@ module.exports = Atommeld =
         @loadOpenTabSelectionView(state)
         @diff_from_tree_tab()
 
-    @commands.add atom.commands.add '.tree-view.multi-select',
+    @commands.add atom.commands.add '.tree-view > .multi-select',
       'atom-meld:diff-from-tree-selected': =>
         @loadAtomMeldExecutor()
         @diff_from_tree_selected()

@@ -32,7 +32,7 @@
       {label: 'Diff with Open Tab', command: 'atom-meld:diff-from-tab-tab'}
     ]
   ]
-  '.tree-view.multi-select': [
+  '.tree-view > .multi-select': [
     label: 'Atom Meld'
     submenu: [
       {label: 'Diff Selected Files', command: 'atom-meld:diff-from-tree-selected'}
