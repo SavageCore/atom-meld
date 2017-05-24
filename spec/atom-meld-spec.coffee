@@ -57,7 +57,7 @@ describe "Atom Meld", ->
           fileView1 = fileViews[0]
 
           fileView1.click()
-          singleSelectElement = workspaceElement.querySelector('.tree-view:not(.multi-select) .file.selected > .name')
+          singleSelectElement = workspaceElement.querySelector('.tree-view > :not(.multi-select) .file.selected > .name')
           singleSelectElement.className += ' am-active'
 
     it 'has command: atom-meld:diff-from-tree-active', ->
@@ -265,13 +265,15 @@ activeFile = ->
 ###
 openTreeView = (workspaceElement) ->
   atom.commands.dispatch(workspaceElement, 'tree-view:show')
-  treeView = $(atom.workspace.getLeftPanels()[0].getItem()).view()
+  treeView = $(atom.workspace.getLeftDock().getActivePaneItem())[0]
   treeViewElement = workspaceElement.querySelector('.tree-view')
 
   dirView = $(treeView.roots[0].entries).find('.directory:contains(test-dir)')
   dirView[0].expand()
 
-  fileView1 = treeView.find('.file:contains(atom-meld-1.txt)')
-  fileView2 = treeView.find('.file:contains(atom-meld-2.txt)')
+  files = treeView.element.querySelectorAll('.file')
+
+  fileView1 = files[0]
+  fileView2 = files[1]
 
   return [fileView1, fileView2, treeViewElement]
