@@ -10,6 +10,7 @@ config = null
 watcher = null
 remote = null
 dialog = null
+lastTextEditor = null
 
 module.exports = Atommeld =
   config:
@@ -25,10 +26,14 @@ module.exports = Atommeld =
       default: '--auto-compare'
 
   activate: (state) ->
+    {TextEditor} = require 'atom'
+
     OpenTabSelectionView: null
     openTabSelectionView: null
     loadOpenFileSelectionView: null
     loadAtomMeldExecutor: null
+    lastTextEditor: null
+
     @loadRequiredModules(state)
     config.init()
     watcher.init()
@@ -71,6 +76,10 @@ module.exports = Atommeld =
         @loadAtomMeldExecutor()
         @diff_from_tree_selected()
 
+    atom.workspace.observeActivePaneItem (activePane) =>
+      if activePane instanceof TextEditor
+        lastTextEditor = activePane.id
+
   diff_from_file_file: ->
     sourceFile = atom.workspace.getActiveTextEditor().getPath()
     targetFile = dialog.showOpenDialog({properties:['openFile'],defaultPath:atom.project.getPaths()[0]})
@@ -102,11 +111,17 @@ module.exports = Atommeld =
 
   diff_from_tree_active: ->
     sourceFile = @getSelectedTree()
-    if (atom.workspace.getActiveTextEditor())
-      targetFile = atom.workspace.getActiveTextEditor().getPath()
-      AtomMeldExecutor.runMeld(sourceFile, targetFile)
-    else
-      atom.notifications.addWarning('No path to Active File',{detail:'Are you viewing the settings page per chance?\nA file must be opened and in view to use this function.';dismissable:true})
+    textEditors = atom.workspace.getTextEditors()
+
+    i = 0
+    while i < textEditors.length
+      if textEditors[i].id == lastTextEditor
+        targetFile = textEditors[i].getPath()
+        AtomMeldExecutor.runMeld(sourceFile, targetFile)
+        return
+      i++
+
+    atom.notifications.addWarning('No path to Active File',{detail:'Are you viewing the settings page per chance?\nA file must be opened and in view to use this function.';dismissable:true})
 
   diff_from_tree_file: ->
     sourceFile = @getSelectedTree()
