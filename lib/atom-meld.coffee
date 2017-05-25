@@ -32,7 +32,6 @@ module.exports = Atommeld =
     openTabSelectionView: null
     loadOpenFileSelectionView: null
     loadAtomMeldExecutor: null
-    lastTextEditor: null
 
     @loadRequiredModules(state)
     config.init()
