@@ -75,7 +75,7 @@ module.exports = Atommeld =
         @loadAtomMeldExecutor()
         @diff_from_tree_selected()
 
-    atom.workspace.observeActivePaneItem (activePane) =>
+    atom.workspace.observeActivePaneItem (activePane) ->
       if activePane instanceof TextEditor
         lastTextEditor = activePane.id
 
