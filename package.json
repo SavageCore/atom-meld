@@ -1,7 +1,7 @@
 {
   "name": "atom-meld",
   "main": "./lib/atom-meld",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Diff support via Meld",
   "license": "MIT",
   "private": true,
