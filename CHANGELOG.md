@@ -1,3 +1,13 @@
+## 0.3.4
+
+* Fix `diff-from-tree-tab` crash - thanks to [JohnMurga](https://github.com/SavageCore/atom-meld/commits/master?author=JohnMurga) [[1b040bf](https://github.com/SavageCore/atom-meld/commit/1b040bf9bdadf617a9540004bef92114477b3984)]
+
+* Fix selectors for `atom-meld:diff-from-tree-selected` [[31273c9](https://github.com/SavageCore/atom-meld/commit/31273c913f691c91c15300e38501c1654201db86)]
+
+* Fix `diff-from-tree-active` [#8](https://github.com/SavageCore/atom-meld/issues/8) [[9c3337e](https://github.com/SavageCore/atom-meld/commit/9c3337e40340fc414f9c094c1fb8ef7b87482eb9)]
+
+* Fix spec tests, disable others that are causing issues [[f884b7f](https://github.com/SavageCore/atom-meld/commit/f884b7fe2397ae0a7f09ecdbd53f019f98987e75), [4ba5df4](4ba5df4facb863ec4660346d41045e3cb74dab8f)]
+
 ## 0.3.3
 * Fix `Uncaught TypeError: Cannot read property 'getPath' of undefined` when diffing with Active File. Now displays a dismissible warning notification hopefully explaining the 'issue' [[fbd6f30](https://github.com/SavageCore/atom-meld/commit/fbd6f30c363cd62724cdb2328b0b55954859893f)]
 
