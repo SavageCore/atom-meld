@@ -59,3 +59,8 @@ Atom Meld is released under the [MIT license][license].
 [license]: LICENSE.md
 [ad]: https://img.shields.io/apm/dm/atom-meld.svg
 [av]: https://img.shields.io/apm/v/atom-meld.svg
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/SavageCore/atom-meld/badge.svg?style=beer-square)](https://beerpay.io/SavageCore/atom-meld)  [![Beerpay](https://beerpay.io/SavageCore/atom-meld/make-wish.svg?style=flat-square)](https://beerpay.io/SavageCore/atom-meld?focus=wish)
