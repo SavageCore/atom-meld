@@ -164,6 +164,7 @@ describe "Atom Meld", ->
       waitsForPromise ->
         atom.packages.activatePackage('tabs').then () ->
           tabBarElement = atom.views.getView(atom.workspace).querySelectorAll('.tab:not(.active)')[0]
+          console.log(tabBarElement)
           fileView2 = tabBarElement
 
     # TODO: This should be false, look at changing
@@ -179,8 +180,6 @@ describe "Atom Meld", ->
       expect(helper.hasCommand(tabBarElement, 'atom-meld:diff-from-tab-tab')).toBe true
 
     it 'has context menu items: Diff with Active File, Diff with File, Diff with Open Tab', ->
-      fileView2.click()
-
       expect(atom.contextMenu.templateForElement(fileView2)[0].submenu).toEqual([
         { label : 'Diff with Active File', command : 'atom-meld:diff-from-tab-active' },
         { label : 'Diff with File', command : 'atom-meld:diff-from-tab-file' },
