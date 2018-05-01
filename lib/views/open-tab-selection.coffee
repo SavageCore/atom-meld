@@ -126,7 +126,7 @@ class FileListView extends SelectListView
     if @alternateScoring
       @populateAlternateList()
     else
-      super
+      super()
 
   populateAlternateList: ->
 
