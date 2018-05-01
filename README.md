@@ -1,5 +1,7 @@
 # Atom Meld
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/SavageCore/atom-meld.svg)](https://greenkeeper.io/)
+
 ![apm version][av] ![apm downloads][ad] [![Build Status: Linux](https://travis-ci.org/SavageCore/atom-meld.svg?branch=master)](https://travis-ci.org/SavageCore/atom-meld) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/32j0i3rm96e4chpf?svg=true)](https://ci.appveyor.com/project/SavageCore/atom-meld) [![Jenkins Build Status](https://ci.savagecore.eu/job/atom-meld/badge/icon)](https://ci.savagecore.eu/job/atom-meld)
 [![Dependencies Status](https://david-dm.org/SavageCore/atom-meld/status.svg)](https://david-dm.org/SavageCore/atom-meld)
 
