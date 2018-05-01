@@ -23,7 +23,6 @@ class FileListView extends SelectListView
 
   initialize: ->
     super
-
     @addClass('command-palette')
     @alternateScoring = atom.config.get 'command-palette.useAlternateScoring'
     @scoreSubscription = atom.config.onDidChange 'command-palette.useAlternateScoring', ({newValue}) => @alternateScoring = newValue
