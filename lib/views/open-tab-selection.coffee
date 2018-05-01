@@ -22,7 +22,7 @@ class FileListView extends SelectListView
   keyBindings: null
 
   initialize: ->
-    super
+    super()
     @addClass('command-palette')
     @alternateScoring = atom.config.get 'command-palette.useAlternateScoring'
     @scoreSubscription = atom.config.onDidChange 'command-palette.useAlternateScoring', ({newValue}) => @alternateScoring = newValue
