@@ -12,12 +12,12 @@
   "dependencies": {
     "atom-space-pen-views": "^2.0.0",
     "fuzzaldrin": "^2.1.0",
-    "fuzzaldrin-plus": "^0.4.0",
+    "fuzzaldrin-plus": "^0.6.0",
     "underscore-plus": "^1.0.1"
   },
   "devDependencies": {
-    "coffeelint": "^1.16.0",
-    "fs-plus": "^2.9.3",
+    "coffeelint": "^2.1.0",
+    "fs-plus": "^3.0.2",
     "temp": "^0.8.3"
   }
 }
