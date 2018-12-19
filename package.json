@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "coffeelint": "^2.1.0",
-    "fs-plus": "^3.1.0",
+    "fs-plus": "^3.1.1",
     "temp": "^0.9.0"
   }
 }
